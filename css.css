@@ -1,0 +1,467 @@
+body {
+  margin: 0%;
+  padding: 0%;
+  background-color: #ffffff;
+  padding-top: 90px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+}
+.navbar .nav .navbar-expand-lg{
+  padding: 0% !important;
+}
+/* ── NAVBAR ── */
+.navbar {
+  padding: 10%;
+  background-color: #6b89a8;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-left: 8%;
+  padding-right: 8%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9000;
+  overflow: visible;
+  padding: 0%;
+  margin: 0%;
+}
+
+.navbar-brand img {
+  width: 60px;
+  height: 60%;
+  padding: 5px;
+  border-radius: 60px;
+  margin-left: 100px;
+}
+
+.nav-link {
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: white;
+  border-radius: 12px;
+}
+
+.nav-link:link {
+  color: white;
+}
+
+.nav-link:hover {
+  background-color: #17548b;
+  color: #ffffff;
+  border-radius: 12px;
+}
+
+.form-control {
+  width: 300px;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  width: 100%;
+}
+
+.navbar {
+  padding: 10px 20px;
+}
+
+/* push items nicely apart */
+.navbar-nav {
+  gap: 0px;
+}
+
+/* search bar flexibility */
+form.d-flex {
+  flex: 1;
+  max-width: 350px;
+}
+/* search */
+.btn-outline-success {
+  color: white;
+  border-color: #17548b;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-outline-success:hover {
+  background-color: #17548b;
+  border-color: #17548b;
+  color: white;
+}
+
+/* ── CAROUSEL ── */
+.carousel {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991.98px) {
+  .d-flex.ms-3 {
+    margin-top: 0.5rem;
+    margin-left: 0 !important;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+}
+
+.about-logo {
+  width: 400px;
+  height: auto;
+  margin-right: 50%;
+}
+
+.align-items-center {
+  width: 100%;
+}
+
+/* ── SIGNUP BOX ── */
+.signup-box {
+  width: 420px;
+  margin: 80px auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px black;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.signup-box input {
+  width: 90%;
+  padding: 6px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.signup-box table {
+  margin: auto;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #6b89a8;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #5a7692;
+}
+
+/* ── LOGIN BOX ── */
+.login-box {
+  width: 380px;
+  margin: 100px auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px black;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-box input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-box table {
+  margin: auto;
+}
+
+.btn-login {
+  background-color: #6b89a8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #5a7692;
+}
+
+.brand-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-left: 0px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-right: 70px;
+}
+
+h2 {
+  font-weight: bold;
+  color: #17548b;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #17548b;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0f3d66;
+}
+
+.feature-box {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.feature-box:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+}
+
+/* ── FOOTER ── */
+.footer {
+  background-color: #6b89a8;
+  color: white;
+  padding: 30px 0;
+  margin-top: 5%;
+}
+
+.footer .logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.footer p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer .links {
+  margin: 15px 0;
+}
+
+.footer .links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer .links a:hover {
+  color: black;
+}
+
+.footer .copy {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* ── ABOUT SECTION ── */
+.about-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.about-box {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.about-box h1 {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.about-box p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+}
+
+table {
+  width: 80%;
+  margin: auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0px 0px 10px #ccc;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+th {
+  background: #6b89a8;
+  color: white;
+}
+
+tr:hover {
+  background: #f1f1f1;
+}
+
+/* ── WELCOME ── */
+.welcome-nav {
+  padding: 12px 40px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 20px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.dropdown-menu {
+  z-index: 9999 !important;
+}
+
+.dropdown-item {
+  color: black !important;
+}
+
+.dropdown-item:hover {
+  background-color: #17548b;
+  color: white !important;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.custom-btn {
+    background-color: #6B89A8 ;
+    color: white;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #587492;
+    color: hite;
+}
+
+/* LIGHT MODE DEFAULT */
+/* BODY */
+body.dark-mode {
+  background-color: #0a1f44;
+  color: white;
+}
+
+/* WELCOME TEXT */
+body.dark-mode .dark-box span {
+  color: white !important;
+}
+
+/* ABOUT SECTION */
+body.dark-mode .about-title {
+  color: #6B89A8 !important;
+}
+
+body.dark-mode .about-text {
+  color: white !important;
+}
+
+/* BEST SELLERS TITLE */
+body.dark-mode .best-title {
+  color: white !important;
+}
+
+/* FEATURE BOXES */
+body.dark-mode .feature-box {
+  background-color: #1b1b1b;
+  color: white;
+}
+
+/* PRODUCT CARDS */
+body.dark-mode .product-card {
+  background-color: #1b1b1b;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* PRODUCT TEXT */
+body.dark-mode .product-title,
+body.dark-mode .product-text {
+  color: white;
+}
+
+/* CARD BODY */
+body.dark-mode .card-body {
+  background-color: #1b1b1b;
+}
+
+/* BUTTONS */
+body.dark-mode .btn-primary {
+  background-color: #6B89A8;
+  border: none;
+}
+
+/* CAROUSEL */
+body.dark-mode .carousel {
+  background-color: #0a1f44;
+}
+
+/* LINKS */
+body.dark-mode a {
+  color: white;
+}
+
+body.dark-mode .card h6,
+body.dark-mode .card p {
+  color: white !important;
+}
+
+body.dark-mode .contact-card {
+  background-color: #1b1b1b !important;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+

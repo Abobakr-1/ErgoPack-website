@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Healthy Are You? 💚</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00c851;
+    --green-dark: #007a33;
+    --green-mid: #00a041;
+    --green-light: #5dde8a;
+    --lime: #b6f54a;
+    --white: #ffffff;
+    --bg: #f0faf4;
+    --dark: #0d2117;
+    --dark-mid: #163825;
+    --red: #ff4444;
+    --orange: #ff8c00;
+    --yellow: #ffd700;
+    --shadow: 0 8px 32px rgba(0,100,50,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--dark);
+    background-image: radial-gradient(circle at 10% 20%, rgba(0,200,81,0.07) 0%, transparent 50%),
+                      radial-gradient(circle at 90% 80%, rgba(182,245,74,0.09) 0%, transparent 50%);
+  }
+
+  nav {
+    background: var(--dark);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--lime) 100%);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .nav-logo-text { color: var(--white); font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.5px; }
+  .nav-logo-text span { color: var(--green-light); }
+
+  .banner {
+    background: linear-gradient(90deg, var(--green-dark) 0%, var(--green-mid) 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .banner span { color: var(--lime); }
+
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 60%, #1a4a2e 100%);
+    padding: 36px 32px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, rgba(0,200,81,0.15) 0%, transparent 65%);
+  }
+  .hero-title { font-family: 'Raleway', sans-serif; font-size: clamp(22px, 4vw, 36px); font-weight: 900; color: var(--white); position: relative; }
+  .hero-title span { color: var(--green-light); }
+  .hero-sub { color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 7px; position: relative; }
+
+  #game-wrapper { max-width: 800px; margin: 28px auto; padding: 0 16px 44px; }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  #start-screen { background: var(--white); border-radius: 24px; box-shadow: var(--shadow); overflow: hidden; text-align: center; }
+  .start-top {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a4a2e 100%);
+    padding: 44px 32px 32px;
+    position: relative; overflow: hidden;
+  }
+  .start-top::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 40px solid rgba(0,200,81,0.08);
+    top: -80px; right: -80px;
+  }
+  .heart-icon-big { font-size: 88px; display: block; margin-bottom: 14px; animation: heartbeat 1.5s ease-in-out infinite; position: relative; }
+  @keyframes heartbeat {
+    0%,100%{transform:scale(1)} 15%{transform:scale(1.12)} 30%{transform:scale(1)} 45%{transform:scale(1.08)} 60%{transform:scale(1)}
+  }
+  .start-title { font-family: 'Raleway', sans-serif; font-size: 30px; font-weight: 900; color: var(--white); position: relative; }
+  .start-title span { color: var(--green-light); }
+  .start-tagline { color: rgba(255,255,255,0.65); font-size: 14px; margin-top: 6px; position: relative; }
+  .start-body { padding: 30px 28px; }
+  .start-desc { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 24px; }
+  .start-desc strong { color: var(--green-dark); }
+
+  .info-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+  .info-pill {
+    background: var(--bg);
+    border: 1.5px solid #c5ecd4;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 13px; font-weight: 700;
+    color: var(--green-dark);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+    color: var(--dark);
+    border: none; border-radius: 50px;
+    padding: 16px 52px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 17px; font-weight: 900;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 24px rgba(0,200,81,0.35);
+    transition: all 0.2s;
+  }
+  .btn-start:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,200,81,0.45); }
+
+  .hud {
+    background: var(--dark);
+    border-radius: 18px;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hud-item { text-align: center; }
+  .hud-label { font-size: 10px; color: rgba(255,255,255,0.55); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+  .hud-value { font-family: 'Raleway', sans-serif; font-size: 22px; font-weight: 900; color: var(--green-light); }
+  .hud-divider { width: 1px; height: 34px; background: rgba(255,255,255,0.12); }
+
+  .game-card { background: var(--white); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
+  .game-card-header {
+    background: linear-gradient(90deg, var(--dark) 0%, var(--dark-mid) 100%);
+    padding: 15px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .q-badge {
+    background: linear-gradient(135deg, var(--green) 0%, var(--lime) 100%);
+    color: var(--dark);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px; font-weight: 900;
+  }
+  .q-category { color: rgba(255,255,255,0.7); font-size: 13px; display: flex; align-items: center; gap: 6px; font-weight: 600; }
+
+  .progress-wrap { background: rgba(0,200,81,0.1); height: 6px; }
+  .progress-fill { height: 6px; background: linear-gradient(90deg, var(--green) 0%, var(--lime) 100%); transition: width 0.5s ease; }
+
+  .game-body { padding: 30px 26px; }
+
+  .question-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .question-emoji { font-size: 42px; margin-bottom: 12px; display: block; }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+  @media(max-width:520px){ .options-grid { grid-template-columns: 1fr; } }
+
+  .option-btn {
+    background: var(--bg);
+    border: 2.5px solid #d0ecda;
+    border-radius: 14px;
+    padding: 15px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    text-align: left;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--green);
+    background: #e8faf0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 16px rgba(0,200,81,0.2);
+  }
+  .option-btn .opt-letter {
+    background: var(--dark);
+    color: var(--white);
+    border-radius: 8px;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900; font-size: 13px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  /* Healthy answer = green */
+  .option-btn.healthy { background: #e8faf0; border-color: var(--green); }
+  .option-btn.healthy .opt-letter { background: var(--green); color: var(--dark); }
+  /* Unhealthy answer = orange/red */
+  .option-btn.unhealthy { background: #fff8f0; border-color: var(--orange); }
+  .option-btn.unhealthy .opt-letter { background: var(--orange); color: var(--white); }
+  /* Selected unhealthy */
+  .option-btn.selected-unhealthy { background: #fff0f0; border-color: var(--red); animation: shake 0.4s ease; }
+  .option-btn.selected-unhealthy .opt-letter { background: var(--red); color: var(--white); }
+  .option-btn:disabled { cursor: default; }
+
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)}
+  }
+  @keyframes correctPop {
+    0%{transform:scale(1)} 40%{transform:scale(1.04)} 100%{transform:scale(1)}
+  }
+
+  .feedback-bar {
+    border-radius: 12px; padding: 12px 18px;
+    font-weight: 700; font-size: 14px;
+    display: none; align-items: flex-start; gap: 10px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .feedback-bar.show { display: flex; animation: fadeIn 0.3s ease; }
+  .feedback-bar.good-fb { background: #e8faf0; color: #1a6b38; border: 1.5px solid #9ddfb4; }
+  .feedback-bar.bad-fb { background: #fff8f0; color: #8c4a00; border: 1.5px solid #ffcc80; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+  .btn-next {
+    width: 100%;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 100%);
+    color: var(--white);
+    border: none; border-radius: 12px;
+    padding: 15px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px; font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    display: none;
+    transition: all 0.2s;
+  }
+  .btn-next.show { display: block; animation: fadeIn 0.3s ease; }
+  .btn-next:hover { background: linear-gradient(135deg, var(--green) 0%, var(--lime) 100%); color: var(--dark); }
+
+  /* Score badge shown on each option after reveal */
+  .score-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .score-badge.pts-high { background: #d4f7e0; color: #1a6b38; }
+  .score-badge.pts-low  { background: #ffe9cc; color: #7a3d00; }
+  .score-badge.pts-zero { background: #ffd6d6; color: #8c0000; }
+
+  /* RESULT */
+  #result-screen { text-align: center; }
+  .result-card { background: var(--white); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
+  .result-top {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a4a2e 100%);
+    padding: 44px 32px 36px;
+    position: relative; overflow: hidden;
+  }
+  .result-top::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 50px solid rgba(0,200,81,0.07);
+    top: -100px; left: -100px;
+  }
+  .result-emoji { font-size: 72px; animation: heartbeat 1.5s ease-in-out infinite; display: block; position: relative; }
+  .result-title { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 900; color: var(--white); margin-top: 14px; position: relative; }
+  .result-sub { color: rgba(255,255,255,0.7); font-size: 15px; margin-top: 6px; position: relative; }
+  .result-body { padding: 36px 28px 32px; }
+
+  .health-meter-wrap { margin: 0 auto 28px; max-width: 340px; }
+  .health-pct-label { font-family: 'Raleway', sans-serif; font-size: 54px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+  .health-pct-sub { font-size: 14px; font-weight: 700; color: #888; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+  .meter-bar-bg { background: #e0f5e9; border-radius: 50px; height: 24px; overflow: hidden; position: relative; }
+  .meter-bar-fill { height: 100%; border-radius: 50px; transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; }
+  .meter-bar-fill::after { content: ''; position: absolute; top: 3px; left: 10px; right: 10px; bottom: 3px; background: rgba(255,255,255,0.3); border-radius: 50px; }
+  .meter-markers { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; font-weight: 700; margin-top: 6px; padding: 0 2px; }
+
+  .grade-card { display: inline-flex; align-items: center; gap: 10px; padding: 12px 26px; border-radius: 50px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 900; margin-bottom: 26px; letter-spacing: 0.3px; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 26px; }
+  .stat-box { background: var(--bg); border-radius: 14px; padding: 16px 10px; text-align: center; border: 1.5px solid #d0ecda; }
+  .stat-box .stat-icon { font-size: 22px; }
+  .stat-box .stat-val { font-family: 'Raleway', sans-serif; font-size: 22px; font-weight: 900; color: var(--dark); }
+  .stat-box .stat-lbl { font-size: 11px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Breakdown section */
+  .breakdown-box { margin-bottom: 24px; text-align: left; }
+  .breakdown-title { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 15px; color: var(--dark); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+  .breakdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 13px; font-weight: 700;
+  }
+  .breakdown-item.good-habit { background: #e8faf0; color: #1a6b38; border: 1px solid #9ddfb4; }
+  .breakdown-item.bad-habit  { background: #fff8f0; color: #7a3d00; border: 1px solid #ffcc80; }
+  .breakdown-icon { font-size: 18px; flex-shrink: 0; }
+
+  .tips-box {
+    background: linear-gradient(135deg, #e8faf0 0%, #f0fdf5 100%);
+    border: 1.5px solid #9ddfb4;
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  .tips-title { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 15px; color: var(--green-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+  .tip-item { display: flex; gap: 9px; align-items: flex-start; font-size: 13px; color: #2d6a4a; font-weight: 600; margin-bottom: 7px; line-height: 1.5; }
+  .tip-item:last-child { margin-bottom: 0; }
+  .tip-dot { color: var(--green); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .result-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-replay { background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%); color: var(--dark); border: none; border-radius: 50px; padding: 14px 36px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 18px rgba(0,200,81,0.3); transition: all 0.2s; }
+  .btn-replay:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(0,200,81,0.4); }
+  .btn-share { background: var(--dark); color: var(--white); border: none; border-radius: 50px; padding: 14px 36px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 900; cursor: pointer; transition: all 0.2s; }
+  .btn-share:hover { transform: translateY(-2px); opacity: 0.85; }
+
+  #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+
+  footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 18px; font-size: 13px; margin-top: 32px; font-weight: 600; }
+  footer span { color: var(--green-light); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">💚</div>
+    <span class="nav-logo-text">Ergonomic<span>Check</span></span>
+  </a>
+</nav>
+
+<div class="banner">
+  🌿 Answer honestly — your <span>REAL ergonomic score</span> depends on it!
+</div>
+
+<div class="hero">
+  <h1 class="hero-title">💚 How <span>Ergonomic</span> Are YOU?</h1>
+  <p class="hero-sub">10 honest questions about YOUR daily habits — get your personal health score!</p>
+</div>
+
+<div id="game-wrapper">
+
+  <!-- START SCREEN -->
+  <div id="start-screen" class="screen active">
+    <div class="start-top">
+      <span class="heart-icon-big">🩺</span>
+      <div class="start-title">Your <span>Real ergonomic Score</span></div>
+      <p class="start-tagline">No wrong answers — just be honest with yourself 😊</p>
+    </div>
+    <div class="start-body">
+      <p class="start-desc">
+        10 quick questions about <strong>your sleep, food, exercise, water & daily habits</strong>.<br>
+        Each answer is worth points based on how healthy it is.<br>
+        At the end, see your <strong>real health percentage</strong> with tips just for you! 💪
+      </p>
+      <div class="info-pills">
+        <div class="info-pill">😴 Sleep</div>
+        <div class="info-pill">🏃 Exercise</div>
+        <div class="info-pill">🥗 Nutrition</div>
+        <div class="info-pill">💧 Hydration</div>
+        <div class="info-pill">🧘 Habits</div>
+      </div>
+      <button class="btn-start" onclick="startGame()">💚 CHECK MY HEALTH NOW</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="screen">
+    <div class="hud">
+      <div class="hud-item">
+        <div class="hud-label">Health Points</div>
+        <div class="hud-value" id="hud-score">0</div>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-item">
+        <div class="hud-label">Question</div>
+        <div class="hud-value" id="hud-q">1/10</div>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-item">
+        <div class="hud-label">Category</div>
+        <div class="hud-value" id="hud-cat" style="font-size:18px">💪</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-card-header">
+        <span class="q-badge" id="q-badge">Q1</span>
+        <span class="q-category" id="q-cat">💪 Category</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+      </div>
+      <div class="game-body">
+        <span class="question-emoji" id="q-emoji">💚</span>
+        <div class="question-text" id="question-text">Loading question...</div>
+
+        <div class="options-grid" id="options-grid"></div>
+
+        <div class="feedback-bar" id="feedback-bar">
+          <span id="feedback-icon">💚</span>
+          <span id="feedback-text"></span>
+        </div>
+
+        <button class="btn-next" id="btn-next" onclick="nextQuestion()">
+          Next Question →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result-screen" class="screen">
+    <div class="result-card">
+      <div class="result-top">
+        <span class="result-emoji" id="result-emoji">💚</span>
+        <div class="result-title" id="result-title">Your Health Report</div>
+        <div class="result-sub" id="result-sub">Based on your real daily habits</div>
+      </div>
+      <div class="result-body">
+
+        <div class="health-meter-wrap">
+          <div class="health-pct-label" id="health-pct-label" style="color:var(--green)">0%</div>
+          <div class="health-pct-sub">Health Score</div>
+          <div class="meter-bar-bg">
+            <div class="meter-bar-fill" id="meter-bar" style="width:0%"></div>
+          </div>
+          <div class="meter-markers">
+            <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+          </div>
+        </div>
+
+        <div id="grade-wrap"></div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon">💚</div>
+            <div class="stat-val" id="stat-good">0</div>
+            <div class="stat-lbl">Healthy Habits</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-val" id="stat-improve">0</div>
+            <div class="stat-lbl">Need Work</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-val" id="stat-pts">0</div>
+            <div class="stat-lbl">Points Earned</div>
+          </div>
+        </div>
+
+        <!-- Per-habit breakdown -->
+        <div class="breakdown-box">
+          <div class="breakdown-title">📋 Your Habit Breakdown</div>
+          <div id="breakdown-list"></div>
+        </div>
+
+        <div class="tips-box" id="tips-box">
+          <div class="tips-title">🌿 Your Personal Health Tips</div>
+          <div id="tips-list"></div>
+        </div>
+
+        <div class="result-btns">
+          <button class="btn-replay" onclick="restartGame()">🔄 Try Again</button>
+          <button class="btn-share" onclick="shareScore()">📤 Share My Score</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<footer>
+  💚 <span>HealthCheck</span> — Know Your Habits. Live Your Best Life.
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+//  QUESTIONS — about the USER's habits
+//  Each option has a `pts` value (0–100) 
+//  and a `feedback` message
+// ─────────────────────────────────────────────
+const ALL_QUESTIONS = [
+  {
+    emoji: '😴', category: 'Sleep',
+    q: 'How many hours of sleep do you usually get each night?',
+    opts: [
+      { text: 'Less than 5 hours',      pts: 0,   tag: 'bad' },
+      { text: '5–6 hours',              pts: 40,  tag: 'ok'  },
+      { text: '7–9 hours',              pts: 100, tag: 'good'},
+      { text: 'More than 9 hours',      pts: 70,  tag: 'ok'  },
+    ],
+    feedbacks: [
+      '⚠️ That\'s very little! Chronic sleep deprivation raises your risk of heart disease, obesity, and poor focus.',
+      '😐 A bit short. Try going to bed 30 minutes earlier — even small gains in sleep make a big difference.',
+      '🌟 Perfect! 7–9 hours is exactly what your body needs to repair, recharge, and stay healthy.',
+      '😊 Sleeping a lot isn\'t always better — aim for 7–9 hours for the most restorative rest.',
+    ]
+  },
+  {
+    emoji: '💧', category: 'Hydration',
+    q: 'How many glasses of water (250ml each) do you drink per day?',
+    opts: [
+      { text: '1–2 glasses',            pts: 0,   tag: 'bad' },
+      { text: '3–5 glasses',            pts: 50,  tag: 'ok'  },
+      { text: '6–7 glasses',            pts: 80,  tag: 'ok'  },
+      { text: '8 or more glasses',      pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 You\'re likely dehydrated! This affects your energy, skin, kidneys, and brain performance.',
+      '😐 Getting closer but still below the recommended 8 glasses. Try keeping a water bottle nearby.',
+      '👍 Good! Almost there — try to squeeze in one or two more glasses to reach your optimal level.',
+      '💧 Excellent! Staying well-hydrated supports every organ in your body.',
+    ]
+  },
+  {
+    emoji: '🏃', category: 'Exercise',
+    q: 'How many days per week do you exercise or do physical activity?',
+    opts: [
+      { text: 'Never / almost never',   pts: 0,   tag: 'bad' },
+      { text: '1–2 days',               pts: 40,  tag: 'ok'  },
+      { text: '3–4 days',               pts: 90,  tag: 'good'},
+      { text: '5 or more days',         pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 No regular movement is a major health risk. Even a 20-minute daily walk makes a huge difference!',
+      '😐 A start! The WHO recommends at least 150 minutes per week. Try adding one more day.',
+      '💪 Great! 3–4 days of activity puts you in an excellent range for heart health and energy.',
+      '🏆 Amazing! You\'re very active — just make sure to include rest days for recovery.',
+    ]
+  },
+  {
+    emoji: '🥦', category: 'Nutrition',
+    q: 'How many servings of vegetables or fruit do you eat daily?',
+    opts: [
+      { text: 'None or barely any',     pts: 0,   tag: 'bad' },
+      { text: '1–2 servings',           pts: 30,  tag: 'ok'  },
+      { text: '3–4 servings',           pts: 70,  tag: 'ok'  },
+      { text: '5 or more servings',     pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Your body is missing out on vital vitamins, fiber, and antioxidants. Try adding just one piece of fruit per day!',
+      '😐 Room to improve. Aim to add one more serving daily — a handful of spinach counts!',
+      '👍 Good effort! One or two more servings would put you in the optimal range.',
+      '🥗 Fantastic! Eating 5+ daily servings dramatically lowers your risk of heart disease, cancer, and diabetes.',
+    ]
+  },
+  {
+    emoji: '🍟', category: 'Nutrition',
+    q: 'How often do you eat fast food or ultra-processed food (chips, soda, frozen meals)?',
+    opts: [
+      { text: 'Every day',              pts: 0,   tag: 'bad' },
+      { text: '4–5 times a week',       pts: 20,  tag: 'bad' },
+      { text: '1–3 times a week',       pts: 60,  tag: 'ok'  },
+      { text: 'Rarely or never',        pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Daily ultra-processed food is strongly linked to obesity, diabetes, and heart disease. Small swaps matter!',
+      '⚠️ That\'s quite frequent. Try replacing 2–3 of those meals per week with home-cooked alternatives.',
+      '😊 Moderate — you\'re doing okay! Aim to cook at home more often for a real health boost.',
+      '🌟 Excellent! Keeping processed food minimal is one of the best things you can do for long-term health.',
+    ]
+  },
+  {
+    emoji: '📱', category: 'Habits',
+    q: 'Do you use your phone or screen in bed right before sleeping?',
+    opts: [
+      { text: 'Yes, every night',                pts: 0,   tag: 'bad' },
+      { text: 'Most nights',                     pts: 20,  tag: 'bad' },
+      { text: 'Sometimes',                       pts: 60,  tag: 'ok'  },
+      { text: 'Rarely — I avoid screens at bedtime', pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Blue light from screens blocks melatonin and delays sleep. Try a 30-min screen-free wind-down routine.',
+      '⚠️ Most nights is still doing real damage to your sleep quality. Set a phone "bedtime" in your settings!',
+      '😊 Not bad! Reducing screen time a bit more will help you fall asleep faster and sleep deeper.',
+      '🌟 Great habit! Protecting your sleep from blue light makes a huge difference in your energy levels.',
+    ]
+  },
+  {
+    emoji: '🧘', category: 'Mental Health',
+    q: 'How often do you do something just for stress relief or mental wellbeing? (meditation, a hobby, a walk, etc.)',
+    opts: [
+      { text: 'Never',                   pts: 0,   tag: 'bad' },
+      { text: 'Rarely (once a month)',   pts: 30,  tag: 'ok'  },
+      { text: 'Sometimes (weekly)',      pts: 70,  tag: 'ok'  },
+      { text: 'Daily or almost daily',   pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Ignoring stress has serious long-term effects. Even 5 minutes of deep breathing a day helps!',
+      '😐 Once in a while isn\'t enough. Try scheduling a small stress-relief activity each week.',
+      '👍 Good! You\'re managing stress — try to make it a daily habit for maximum benefit.',
+      '🌟 Excellent! Regular mental health habits are just as important as physical ones. Keep it up!',
+    ]
+  },
+  {
+    emoji: '🚬', category: 'Habits',
+    q: 'Do you smoke cigarettes or use tobacco products?',
+    opts: [
+      { text: 'Yes, regularly',          pts: 0,   tag: 'bad' },
+      { text: 'Occasionally / socially', pts: 30,  tag: 'bad' },
+      { text: 'I quit recently',         pts: 80,  tag: 'ok'  },
+      { text: 'No, never smoked',        pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Smoking is the #1 preventable cause of death. Quitting is the single best health choice you can make.',
+      '⚠️ Even occasional smoking harms your lungs and heart. Every cigarette you don\'t smoke helps.',
+      '🎉 Congratulations! Quitting is incredibly hard. Your body starts healing from the very first day.',
+      '💚 Amazing! Never smoking is one of the best gifts you\'ve ever given your body.',
+    ]
+  },
+  {
+    emoji: '⏱️', category: 'Lifestyle',
+    q: 'How often do you take breaks from sitting during a typical workday?',
+    opts: [
+      { text: 'I sit for hours without moving', pts: 0,   tag: 'bad' },
+      { text: 'I take 1–2 breaks total',        pts: 40,  tag: 'ok'  },
+      { text: 'Every 1–2 hours',                pts: 80,  tag: 'ok'  },
+      { text: 'Every 30–60 minutes',            pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Prolonged sitting is called "the new smoking." Stand up and move for 5 minutes every hour!',
+      '😐 Not quite enough. Set phone reminders to stand up and stretch more regularly.',
+      '👍 Good! You\'re breaking up your sitting time well — just a bit more often would be ideal.',
+      '🌟 Perfect! Regular movement breaks dramatically reduce your risk of heart disease and back pain.',
+    ]
+  },
+  {
+    emoji: '🍷', category: 'Habits',
+    q: 'How much alcohol do you drink in a typical week?',
+    opts: [
+      { text: 'A lot (daily or most days)',   pts: 0,   tag: 'bad' },
+      { text: 'Moderately (3–6 drinks/week)', pts: 40,  tag: 'ok'  },
+      { text: 'Occasionally (1–2 drinks)',    pts: 80,  tag: 'ok'  },
+      { text: 'None / almost none',           pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Heavy drinking damages your liver, heart, and brain. Consider speaking to a doctor about support.',
+      '😐 Moderate amounts still carry health risks. Cutting back even a little makes a real difference.',
+      '😊 Light drinking is lower risk. The healthiest choice is still less alcohol overall.',
+      '💚 Great choice! Avoiding alcohol is one of the most beneficial things you can do for your health.',
+    ]
+  },
+  {
+    emoji: '🌞', category: 'Vitamins',
+    q: 'How much time do you spend outdoors in natural sunlight most days?',
+    opts: [
+      { text: 'Almost none (indoors all day)', pts: 20,  tag: 'ok'  },
+      { text: '15–30 minutes',                pts: 100, tag: 'good'},
+      { text: '30 min – 2 hours',             pts: 90,  tag: 'good'},
+      { text: 'Several hours',                pts: 70,  tag: 'ok'  },
+    ],
+    feedbacks: [
+      '😐 You might be low on Vitamin D! Even 15 minutes of sunlight daily helps your bones, mood, and immune system.',
+      '🌟 Perfect! 15–30 minutes of sun is enough for your body to produce adequate Vitamin D.',
+      '😊 Good outdoor time! Just be mindful of sun protection during peak hours.',
+      '☀️ Lots of sun is great for mood and Vitamin D — just remember to use SPF to protect your skin!',
+    ]
+  },
+  {
+    emoji: '🦷', category: 'Hygiene',
+    q: 'How often do you brush your teeth?',
+    opts: [
+      { text: 'Rarely / sometimes',              pts: 0,   tag: 'bad' },
+      { text: 'Once a day',                      pts: 50,  tag: 'ok'  },
+      { text: 'Twice a day',                     pts: 100, tag: 'good'},
+      { text: 'After every meal',                pts: 90,  tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Poor oral hygiene is linked to heart disease and infections. Make brushing twice daily non-negotiable!',
+      '😐 Once is better than nothing, but adding an evening brush makes a huge difference for your gums and heart health.',
+      '🌟 Perfect! Twice daily for 2 minutes each is exactly what dentists recommend.',
+      '😊 Great dedication! Just be careful not to brush too hard — you can damage your enamel.',
+    ]
+  },
+  {
+    emoji: '🥗', category: 'Nutrition',
+    q: 'How often do you eat a home-cooked meal (as opposed to takeout or packaged food)?',
+    opts: [
+      { text: 'Rarely — mostly takeout or packaged', pts: 10,  tag: 'bad' },
+      { text: '1–3 times a week',                   pts: 50,  tag: 'ok'  },
+      { text: '4–5 times a week',                   pts: 80,  tag: 'ok'  },
+      { text: 'Almost every day',                   pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '⚠️ Cooking at home gives you control over ingredients, portions, and quality. Try one homemade meal per day!',
+      '😐 A decent start! Shifting to home cooking even a few more times per week significantly improves your diet.',
+      '👍 Good! You\'re mostly eating home-cooked — a little more consistency and you\'re in excellent shape.',
+      '🌟 Excellent! Cooking at home is one of the strongest predictors of a healthy diet and healthy weight.',
+    ]
+  },
+  {
+    emoji: '🫁', category: 'Mental Health',
+    q: 'How would you describe your stress level on most days?',
+    opts: [
+      { text: 'Very high — I\'m always stressed',   pts: 0,   tag: 'bad' },
+      { text: 'High — often stressed',              pts: 30,  tag: 'ok'  },
+      { text: 'Moderate — manageable',              pts: 70,  tag: 'ok'  },
+      { text: 'Low — generally calm and balanced',  pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Chronic high stress raises cortisol, damages the heart, and weakens immunity. Please prioritize your mental health!',
+      '😐 Frequent stress takes a real toll. Try adding one daily habit just for relaxation — even 10 minutes counts.',
+      '😊 You\'re managing! Look into simple daily habits like walking, journaling, or breathing exercises to lower it further.',
+      '🌟 Wonderful! Low stress is a superpower for your immune system, heart, and longevity.',
+    ]
+  },
+  {
+    emoji: '🏋️', category: 'Exercise',
+    q: 'When you do exercise, what type of activity do you mostly do?',
+    opts: [
+      { text: 'I don\'t exercise',                  pts: 0,   tag: 'bad' },
+      { text: 'Light activity (walking, stretching)',pts: 60,  tag: 'ok'  },
+      { text: 'Moderate (jogging, cycling, swimming)',pts: 90, tag: 'good'},
+      { text: 'Intense (gym, HIIT, sports)',         pts: 100, tag: 'good'},
+    ],
+    feedbacks: [
+      '🚨 Starting is the hardest part. Try a 15-minute walk today — that\'s genuinely all it takes to begin.',
+      '😊 Light activity is great and much better than nothing! Gradually increasing intensity will bring bigger benefits.',
+      '💪 Excellent! Moderate cardio is the gold standard for heart health and longevity.',
+      '🏆 Impressive! Intense training is fantastic — just make sure to include recovery days and listen to your body.',
+    ]
+  },
+];
+
+// ─────────────────────────────────────────────
+//  GAME STATE
+// ─────────────────────────────────────────────
+let questions = [];
+let currentQ = 0;
+let totalPts = 0;
+let maxPts = 0;
+let answered = false;
+let goodHabits = 0;
+let needsWork = 0;
+let answerLog = []; // {q, chosenIdx, pts, tag}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  questions = shuffle(ALL_QUESTIONS).slice(0, 10);
+  currentQ = 0; totalPts = 0; maxPts = 0;
+  goodHabits = 0; needsWork = 0; answered = false;
+  answerLog = [];
+  showScreen('game-screen');
+  loadQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function loadQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  maxPts += 100;
+
+  document.getElementById('hud-score').textContent = totalPts;
+  document.getElementById('hud-q').textContent = (currentQ + 1) + '/10';
+  document.getElementById('hud-cat').textContent = q.emoji;
+  document.getElementById('progress-fill').style.width = ((currentQ + 1) / 10 * 100) + '%';
+  document.getElementById('q-badge').textContent = 'Q' + (currentQ + 1);
+  document.getElementById('q-cat').textContent = q.emoji + ' ' + q.category;
+  document.getElementById('q-emoji').textContent = q.emoji;
+  document.getElementById('question-text').textContent = q.q;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectAnswer(i, btn);
+    grid.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback-bar');
+  fb.className = 'feedback-bar';
+  document.getElementById('btn-next').className = 'btn-next';
+}
+
+function selectAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[currentQ];
+  const chosen = q.opts[idx];
+  const allBtns = document.querySelectorAll('.option-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  // Reveal all options with their health rating
+  allBtns.forEach((b, i) => {
+    const opt = q.opts[i];
+    const letters = ['A','B','C','D'];
+    let badgeClass, badgeLabel;
+    if (opt.pts >= 90) { badgeClass = 'pts-high'; badgeLabel = '+' + opt.pts + ' pts'; }
+    else if (opt.pts >= 40) { badgeClass = 'pts-low'; badgeLabel = '+' + opt.pts + ' pts'; }
+    else { badgeClass = 'pts-zero'; badgeLabel = '+' + opt.pts + ' pts'; }
+
+    b.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.text}</span><span class="score-badge ${badgeClass}">${badgeLabel}</span>`;
+
+    if (opt.pts >= 80) {
+      b.classList.add('healthy');
+    }
+  });
+
+  // Highlight selected
+  if (chosen.pts < 50) {
+    btn.classList.add('selected-unhealthy');
+  }
+
+  // Track score
+  totalPts += chosen.pts;
+  if (chosen.tag === 'good') goodHabits++;
+  else needsWork++;
+
+  answerLog.push({ q: q.q, chosenText: chosen.text, pts: chosen.pts, tag: chosen.tag, category: q.category, emoji: q.emoji });
+
+  // Feedback
+  const fb = document.getElementById('feedback-bar');
+  if (chosen.pts >= 80) {
+    fb.className = 'feedback-bar good-fb show';
+  } else {
+    fb.className = 'feedback-bar bad-fb show';
+  }
+  document.getElementById('feedback-icon').textContent = chosen.pts >= 80 ? '💚' : (chosen.pts >= 40 ? '😐' : '⚠️');
+  document.getElementById('feedback-text').textContent = q.feedbacks[idx];
+
+  document.getElementById('hud-score').textContent = totalPts;
+
+  const btnNext = document.getElementById('btn-next');
+  btnNext.className = 'btn-next show';
+  btnNext.textContent = currentQ < 9 ? 'Next Question →' : '💚 See My Health Score';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= 10) {
+    showResults();
+  } else {
+    loadQuestion();
+  }
+}
+
+// ─────────────────────────────────────────────
+//  RESULTS
+// ─────────────────────────────────────────────
+function showResults() {
+  showScreen('result-screen');
+
+  const pct = Math.round((totalPts / (10 * 100)) * 100);
+
+  document.getElementById('stat-good').textContent = goodHabits;
+  document.getElementById('stat-improve').textContent = 10 - goodHabits;
+  document.getElementById('stat-pts').textContent = totalPts;
+
+  setTimeout(() => {
+    document.getElementById('health-pct-label').textContent = pct + '%';
+
+    let color, barGradient;
+    if (pct >= 80) { color = '#00c851'; barGradient = 'linear-gradient(90deg,#00c851,#b6f54a)'; }
+    else if (pct >= 60) { color = '#00a041'; barGradient = 'linear-gradient(90deg,#00a041,#5dde8a)'; }
+    else if (pct >= 40) { color = '#ff8c00'; barGradient = 'linear-gradient(90deg,#ff8c00,#ffd700)'; }
+    else { color = '#ff4444'; barGradient = 'linear-gradient(90deg,#ff4444,#ff8c00)'; }
+
+    document.getElementById('health-pct-label').style.color = color;
+    const bar = document.getElementById('meter-bar');
+    bar.style.width = pct + '%';
+    bar.style.background = barGradient;
+  }, 200);
+
+  // Grade
+  let emoji, title, sub, gradeTxt, gradeColor, tips;
+  if (pct >= 85) {
+    emoji = '🏆'; title = 'You\'re Living Very Healthy!'; sub = 'Your habits show real dedication to your wellbeing.';
+    gradeTxt = '⭐ HEALTH CHAMPION'; gradeColor = '#00c851';
+    tips = ['Keep up the amazing habits — you\'re inspiring!', 'Consider sharing what you do with people around you.', 'Focus on any weak spots you noticed in the quiz.'];
+  } else if (pct >= 70) {
+    emoji = '💪'; title = 'Pretty Healthy!'; sub = 'Strong habits with a few areas to polish.';
+    gradeTxt = '🥇 FAIRLY HEALTHY'; gradeColor = '#00a041';
+    tips = ['You\'re doing great — look at your lower-scoring habits for opportunities.', 'Small consistent improvements compound over time!', 'Consider tracking your sleep quality this week.'];
+  } else if (pct >= 50) {
+    emoji = '😊'; title = 'Room to Grow!'; sub = 'Some good habits, but several areas need attention.';
+    gradeTxt = '🥈 WORK IN PROGRESS'; gradeColor = '#2196f3';
+    tips = ['Pick just ONE habit from your low scores and work on it for 2 weeks.', 'Small wins build momentum — start with the easiest change.', 'Try drinking one more glass of water daily.'];
+  } else if (pct >= 30) {
+    emoji = '😐'; title = 'Needs Real Attention'; sub = 'Your daily habits are putting your health at risk.';
+    gradeTxt = '🥉 NEEDS WORK'; gradeColor = '#ff8c00';
+    tips = ['Don\'t be discouraged — awareness is step one!', 'Start with sleep: going to bed 30 min earlier changes everything.', 'Replace one processed meal per day with something homemade.', 'Add a 15-minute walk to your daily routine.'];
+  } else {
+    emoji = '⚠️'; title = 'Health Alarm!'; sub = 'Your habits need significant changes — you deserve better.';
+    gradeTxt = '🚨 URGENT ATTENTION'; gradeColor = '#ff4444';
+    tips = ['Start with ONE thing: drink 8 glasses of water today.', 'Sleep is the foundation — aim for 7 hours tonight.', 'Consider a check-up with your doctor soon.', 'Remember: every single healthy choice counts, no matter how small.'];
+  }
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = sub;
+
+  document.getElementById('grade-wrap').innerHTML = `
+    <div class="grade-card" style="background:${gradeColor}18;color:${gradeColor};border:2px solid ${gradeColor}40;">
+      ${gradeTxt}
+    </div>
+  `;
+
+  // Habit breakdown
+  const breakdownList = document.getElementById('breakdown-list');
+  breakdownList.innerHTML = answerLog.map(a => {
+    const isGood = a.pts >= 80;
+    const icon = isGood ? '✅' : (a.pts >= 40 ? '⚠️' : '❌');
+    return `
+      <div class="breakdown-item ${isGood ? 'good-habit' : 'bad-habit'}">
+        <span class="breakdown-icon">${a.emoji}</span>
+        <div style="flex:1">
+          <div style="font-size:12px;opacity:0.7;margin-bottom:2px">${a.category}</div>
+          <div>${a.chosenText}</div>
+        </div>
+        <span style="font-size:12px;font-weight:900">${icon} ${a.pts} pts</span>
+      </div>
+    `;
+  }).join('');
+
+  // Tips
+  const tipsList = document.getElementById('tips-list');
+  tipsList.innerHTML = tips.map(t => `
+    <div class="tip-item"><span class="tip-dot">●</span><span>${t}</span></div>
+  `).join('');
+
+  if (pct >= 80) launchConfetti();
+}
+
+function restartGame() {
+  stopConfetti();
+  document.getElementById('meter-bar').style.transition = 'none';
+  document.getElementById('meter-bar').style.width = '0%';
+  document.getElementById('health-pct-label').textContent = '0%';
+  setTimeout(() => {
+    document.getElementById('meter-bar').style.transition = 'width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  }, 100);
+  showScreen('start-screen');
+}
+
+function shareScore() {
+  const pct = Math.round((totalPts / (10 * 100)) * 100);
+  const text = `💚 I just scored ${pct}% on my personal health habits quiz! How healthy are YOUR habits? Try it now!`;
+  if (navigator.share) {
+    navigator.share({ title: 'How Healthy Are You?', text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard! Share your health score! 💚'));
+  }
+}
+
+// ─────────────────────────────────────────────
+//  CONFETTI
+// ─────────────────────────────────────────────
+let confettiAnimId = null;
+
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#00c851','#b6f54a','#5dde8a','#00a041','#ffd700','#2196f3','#ffffff'];
+  const particles = Array.from({ length: 130 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -canvas.height,
+    w: Math.random() * 10 + 5,
+    h: Math.random() * 6 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: Math.random() * 3 + 1.5,
+    angle: Math.random() * 360,
+    spin: (Math.random() - 0.5) * 6,
+    drift: (Math.random() - 0.5) * 1.5
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+      p.y += p.speed; p.x += p.drift; p.angle += p.spin;
+      if (p.y > canvas.height) { p.y = -20; p.x = Math.random() * canvas.width; }
+    });
+    confettiAnimId = requestAnimationFrame(draw);
+  }
+  draw();
+  setTimeout(stopConfetti, 5000);
+}
+
+function stopConfetti() {
+  if (confettiAnimId) {
+    cancelAnimationFrame(confettiAnimId);
+    confettiAnimId = null;
+    const canvas = document.getElementById('confetti-canvas');
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+</script>
+</body>
+</html>
